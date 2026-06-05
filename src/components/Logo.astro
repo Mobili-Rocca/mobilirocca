@@ -1,0 +1,54 @@
+---
+// CSS reconstruction of the Mobili Rocca lockup — crisp at any size,
+// inherits currentColor for ROCCA so it works on light and dark grounds.
+interface Props {
+  class?: string;
+  label?: string;
+}
+const { class: cls = "", label = "Mobili Rocca Broccostella" } = Astro.props;
+---
+
+<span class={`brand ${cls}`} role="img" aria-label={label}>
+  <span class="m" aria-hidden="true">MOBILI</span>
+  <span class="r" aria-hidden="true">ROCCA</span>
+  <span class="b" aria-hidden="true">Broccostella</span>
+</span>
+
+<style>
+  .brand {
+    font-family: var(--font-display);
+    line-height: 0.82;
+    display: inline-block;
+    user-select: none;
+  }
+  .m {
+    display: inline-block;
+    background: var(--color-red);
+    color: #fff;
+    font-size: 0.6em;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    padding: 0.2em 0.5em 0.12em;
+    transform: translateZ(0);
+  }
+  .r {
+    display: block;
+    color: currentColor;
+    font-weight: 500;
+    font-size: 1em;
+    letter-spacing: 0.04em;
+    margin-top: 0.16em;
+  }
+  .b {
+    display: block;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.26em;
+    letter-spacing: 0.62em;
+    text-transform: uppercase;
+    margin-top: 0.7em;
+    margin-left: 0.2em;
+    color: currentColor;
+    opacity: 0.65;
+  }
+</style>

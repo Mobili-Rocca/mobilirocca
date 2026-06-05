@@ -1,0 +1,158 @@
+---
+import { Image } from "astro:assets";
+import type { Lang } from "../i18n/ui";
+import { useT } from "../i18n/ui";
+import { business } from "../config/site";
+import { images } from "../config/images";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const a = useT(lang).about;
+const showroom = images.about;
+---
+
+<section id="chi-siamo" class="about">
+  <div class="u-wrap grid">
+    <div class="col-text">
+      <div class="shead-top" data-reveal>
+        <span class="eyebrow">{a.eyebrow}</span>
+        <span class="seg-num">{a.num}<span class="of"> / 05</span></span>
+      </div>
+
+      <h2 class="title" data-reveal style="--reveal-delay:90ms">{a.title}</h2>
+
+      <div class="prose">
+        <p data-reveal style="--reveal-delay:150ms">{a.p1}</p>
+        <p data-reveal style="--reveal-delay:220ms">{a.p2}</p>
+      </div>
+
+      <dl class="stats" data-reveal style="--reveal-delay:280ms">
+        {a.stats.map((s) => (
+          <div class="stat">
+            <dt class="n">{s.n}</dt>
+            <dd class="l">{s.l}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="partners" data-reveal style="--reveal-delay:340ms">
+        <span class="pl">{a.partnersLabel}</span>
+        {business.partners.map((p, i) => (
+          <>
+            <span class="pn">{p}</span>{i < business.partners.length - 1 ? <span class="dot">·</span> : null}
+          </>
+        ))}
+        <span class="ptail">{a.partnersTail}</span>
+      </p>
+    </div>
+
+    <div class="col-media" data-reveal style="--reveal-delay:160ms">
+      <div class="zoomwrap media">
+        <Image
+          src={showroom}
+          alt="Interno dello showroom Mobili Rocca a Broccostella"
+          widths={[480, 760, 1100]}
+          sizes="(min-width:1024px) 42vw, 90vw"
+          class="img"
+        />
+      </div>
+      <span class="est">Est. {business.foundedYear}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--color-paper-2);
+    padding-block: clamp(5rem, 12vh, 9rem);
+  }
+  .grid { display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  @media (min-width: 1024px) {
+    .grid { grid-template-columns: 1.05fr 0.95fr; align-items: start; }
+  }
+
+  .shead-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--color-line-strong);
+  }
+  .seg-num { font-size: 1.5rem; }
+  .seg-num .of { color: var(--color-ink-soft); font-size: 0.95rem; }
+
+  .title {
+    margin-top: 2rem;
+    font-size: clamp(2.1rem, 4.8vw, 3.8rem);
+    font-weight: 360;
+    max-width: 16ch;
+  }
+  .prose { margin-top: 1.8rem; display: flex; flex-direction: column; gap: 1.1rem; max-width: 56ch; }
+  .prose p { font-size: clamp(1rem, 1.05vw, 1.1rem); line-height: 1.62; color: var(--color-ink-soft); }
+  .prose p:first-child { color: var(--color-ink); font-size: clamp(1.05rem, 1.2vw, 1.2rem); }
+
+  .stats {
+    margin-top: 2.6rem;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 1.5rem 2.5rem;
+    justify-content: start;
+  }
+  .stat { display: flex; flex-direction: column; gap: 0.3rem; }
+  .n {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.1rem);
+    font-weight: 360;
+    color: var(--color-red);
+    line-height: 1;
+  }
+  .l {
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-soft);
+    max-width: 14ch;
+  }
+
+  .partners {
+    margin-top: 2.6rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--color-line-strong);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .partners .pl {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    margin-right: 0.7rem;
+  }
+  .partners .pn { color: var(--color-ink); font-weight: 600; }
+  .partners .dot { color: var(--color-red); margin: 0 0.45rem; }
+  .partners .ptail { margin-left: 0.4rem; }
+
+  .col-media { position: relative; }
+  .media { aspect-ratio: 4 / 5; }
+  @media (min-width: 1024px) {
+    .col-media { position: sticky; top: 6rem; }
+    .media { aspect-ratio: 3 / 4; }
+  }
+  .img { width: 100%; height: 100%; object-fit: cover; }
+  .est {
+    position: absolute;
+    left: -0.5rem;
+    bottom: 1.5rem;
+    background: var(--color-red);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    padding: 0.5rem 1.1rem;
+    box-shadow: 0 16px 30px -16px rgba(0, 0, 0, 0.5);
+  }
+</style>

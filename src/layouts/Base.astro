@@ -1,0 +1,88 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/schibsted-grotesk";
+import type { Lang } from "../i18n/ui";
+import { useT } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <meta name="theme-color" content="#f4efe5" />
+
+    <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="alternate" hreflang="it" href={new URL("/", Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL("/en/", Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:image" content={new URL("/logo.jpg", Astro.site)} />
+    <meta property="og:locale" content={lang === "it" ? "it_IT" : "en_GB"} />
+
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // Scroll reveal
+      const reveals = document.querySelectorAll("[data-reveal]");
+      if ("IntersectionObserver" in window && reveals.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-in");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+        reveals.forEach((el) => io.observe(el));
+      } else {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      }
+
+      // Sticky header state
+      const header = document.getElementById("site-header");
+      if (header) {
+        const onScroll = () =>
+          header.classList.toggle("is-scrolled", window.scrollY > 24);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
+
+      // Mobile menu
+      const btn = document.querySelector("[data-menu-btn]");
+      const panel = document.querySelector("[data-menu]");
+      const setMenu = (open: boolean) => {
+        panel?.classList.toggle("is-open", open);
+        btn?.setAttribute("aria-expanded", String(open));
+        document.body.style.overflow = open ? "hidden" : "";
+      };
+      btn?.addEventListener("click", () =>
+        setMenu(!panel?.classList.contains("is-open"))
+      );
+      panel?.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => setMenu(false))
+      );
+    </script>
+  </body>
+</html>

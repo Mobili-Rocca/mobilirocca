@@ -1,0 +1,221 @@
+---
+import Logo from "./Logo.astro";
+import type { Lang } from "../i18n/ui";
+import { useT } from "../i18n/ui";
+import { business } from "../config/site";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const home = lang === "it" ? "/" : "/en/";
+---
+
+<header id="site-header">
+  <div class="u-wrap bar">
+    <a href={home} class="logo-link" aria-label="Mobili Rocca — home">
+      <Logo />
+    </a>
+
+    <nav class="desk-nav" aria-label="Primary">
+      {t.nav.items.map((i) => (
+        <a href={i.href} class="link-wipe nav-a">{i.label}</a>
+      ))}
+    </nav>
+
+    <div class="actions">
+      <a href={t.nav.otherHref} class="lang" aria-label={`Switch language to ${t.nav.otherName}`}>
+        <span class="cur">{lang.toUpperCase()}</span>
+        <span class="sep">/</span>
+        <span class="oth">{t.nav.otherName}</span>
+      </a>
+      <a href={`tel:${business.phone.href}`} class="btn btn-red call-btn">
+        {t.nav.callCta}
+      </a>
+      <button class="burger" data-menu-btn aria-expanded="false" aria-label={t.nav.menu}>
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile overlay menu -->
+<div class="mobile" data-menu aria-hidden="true">
+  <nav class="m-nav" aria-label="Mobile">
+    {t.nav.items.map((i, idx) => (
+      <a href={i.href} class="m-a">
+        <span class="m-i">0{idx + 1}</span>{i.label}
+      </a>
+    ))}
+  </nav>
+  <div class="m-foot">
+    <a href={`tel:${business.phone.href}`} class="btn btn-red">{t.nav.callCta}</a>
+    <a href={t.nav.otherHref} class="m-lang">{t.nav.otherName === "EN" ? "English" : "Italiano"} →</a>
+  </div>
+</div>
+
+<style>
+  #site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease,
+      border-color 0.4s ease, backdrop-filter 0.4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  #site-header.is-scrolled {
+    background-color: color-mix(in srgb, var(--color-paper) 82%, transparent);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom-color: var(--color-line);
+  }
+  /* Legibility scrim while transparent over the dark hero */
+  #site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 200%;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(8, 6, 4, 0.5), rgba(8, 6, 4, 0));
+    transition: opacity 0.4s ease;
+  }
+  #site-header.is-scrolled::before { opacity: 0; }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5.25rem;
+    transition: height 0.4s ease;
+  }
+  #site-header.is-scrolled .bar { height: 4.25rem; }
+
+  .logo-link {
+    font-size: 1.45rem;
+    color: #f7f2e9;
+    transition: color 0.4s ease;
+  }
+  .is-scrolled .logo-link { color: var(--color-ink); }
+
+  .desk-nav { display: none; gap: 2.25rem; }
+  .nav-a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(247, 242, 233, 0.92);
+    transition: color 0.4s ease;
+  }
+  .is-scrolled .nav-a { color: var(--color-ink); }
+
+  .actions { display: flex; align-items: center; gap: 1rem; }
+
+  .lang {
+    display: none;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .lang .cur { color: #f7f2e9; transition: color 0.4s ease; }
+  .lang .sep { color: rgba(247, 242, 233, 0.5); }
+  .lang .oth { color: rgba(247, 242, 233, 0.7); transition: color 0.3s ease; }
+  .lang:hover .oth { color: #fff; }
+  .is-scrolled .lang .cur { color: var(--color-ink); }
+  .is-scrolled .lang .sep { color: var(--color-line-strong); }
+  .is-scrolled .lang .oth { color: var(--color-ink-soft); }
+  .is-scrolled .lang:hover .oth { color: var(--color-red); }
+
+  .call-btn { display: none; padding: 0.7rem 1.2rem; }
+
+  /* Burger */
+  .burger {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .burger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: #f7f2e9;
+    transition: transform 0.35s var(--ease-out-expo), opacity 0.2s ease,
+      background 0.4s ease;
+  }
+  .is-scrolled .burger span,
+  .burger[aria-expanded="true"] span { background: var(--color-ink); }
+
+  /* When the mobile overlay (light) is open, force ink header + drop scrim */
+  #site-header:has(.burger[aria-expanded="true"])::before { opacity: 0; }
+  #site-header:has(.burger[aria-expanded="true"]) .logo-link { color: var(--color-ink); }
+  [data-menu-btn][aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+  [data-menu-btn][aria-expanded="true"] span:nth-child(2) {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+
+  /* Mobile overlay */
+  .mobile {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: var(--color-paper);
+    padding: 7rem 1.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.6s var(--ease-out-expo), opacity 0.4s ease;
+  }
+  .mobile.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .m-nav { display: flex; flex-direction: column; }
+  .m-a {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    font-weight: 420;
+    letter-spacing: -0.02em;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--color-line);
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .m-i {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-red);
+    letter-spacing: 0.1em;
+  }
+  .m-foot { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  .m-lang {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-ink-soft);
+  }
+
+  @media (min-width: 480px) {
+    .lang { display: inline-flex; }
+  }
+  @media (min-width: 1024px) {
+    .desk-nav { display: flex; }
+    .call-btn { display: inline-flex; }
+    .burger, .mobile { display: none; }
+  }
+</style>

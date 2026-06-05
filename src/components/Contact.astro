@@ -1,0 +1,159 @@
+---
+import type { Lang } from "../i18n/ui";
+import { useT } from "../i18n/ui";
+import { business, hours, waLink, hasWhatsapp } from "../config/site";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = useT(lang).contact;
+const wa = hasWhatsapp ? waLink(c.waText) : "";
+---
+
+<section id="contatti" class="contact">
+  <div class="u-wrap">
+    <div class="shead-top" data-reveal>
+      <span class="eyebrow">{c.eyebrow}</span>
+      <span class="seg-num">{c.num}<span class="of"> / 05</span></span>
+    </div>
+
+    <div class="head" data-reveal style="--reveal-delay:90ms">
+      <h2 class="title">{c.title}</h2>
+      <p class="body">{c.body}</p>
+    </div>
+
+    <div class="grid">
+      <div class="info" data-reveal style="--reveal-delay:120ms">
+        <div class="block">
+          <span class="lbl">{c.addressLabel}</span>
+          <a class="addr link-wipe" href={business.mapLink} target="_blank" rel="noopener">
+            {business.address.street}<br />{business.address.zip} {business.address.city} ({business.address.province})
+          </a>
+        </div>
+
+        <div class="block">
+          <span class="lbl">{c.hoursLabel}</span>
+          <ul class="hours">
+            {hours.map((d) => (
+              <li class={d.h ? "" : "off"}>
+                <span class="day">{lang === "it" ? d.d : d.en}</span>
+                <span class="hrs">
+                  {d.h ? d.h.join("  ·  ") : c.closed}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-red" href={`tel:${business.phone.href}`}>
+            {c.call} — {business.phone.display}
+          </a>
+          {hasWhatsapp ? (
+            <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener">{c.whatsapp}</a>
+          ) : (
+            <span class="btn btn-ghost is-disabled" aria-disabled="true">{c.whatsapp}</span>
+          )}
+          <a class="btn btn-ghost" href={`mailto:${business.email}`}>{c.email}</a>
+        </div>
+      </div>
+
+      <div class="map-wrap" data-reveal style="--reveal-delay:180ms">
+        <iframe
+          src={business.mapEmbed}
+          title="Mappa — Mobili Rocca, Via Stella 116, Broccostella"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+        <a class="map-cta" href={business.mapLink} target="_blank" rel="noopener">
+          {c.directions} ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { padding-block: clamp(5rem, 12vh, 9rem); }
+
+  .shead-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .seg-num { font-size: 1.5rem; }
+  .seg-num .of { color: var(--color-ink-soft); font-size: 0.95rem; }
+
+  .head { margin-top: 2.2rem; max-width: 60ch; }
+  .title { font-size: clamp(2.1rem, 5vw, 4rem); font-weight: 360; }
+  .body { margin-top: 1.3rem; font-size: clamp(1rem, 1.1vw, 1.15rem); line-height: 1.6; color: var(--color-ink-soft); }
+
+  .grid {
+    margin-top: clamp(2.5rem, 5vh, 4rem);
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  @media (min-width: 1024px) { .grid { grid-template-columns: 0.95fr 1.05fr; align-items: stretch; } }
+
+  .info { display: flex; flex-direction: column; gap: 2.2rem; }
+  .block { display: flex; flex-direction: column; gap: 0.85rem; }
+  .lbl {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  .addr {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-weight: 360;
+    line-height: 1.2;
+    align-self: flex-start;
+  }
+
+  .hours { list-style: none; padding: 0; margin: 0; width: 100%; }
+  .hours li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .hours .day { font-weight: 500; }
+  .hours .hrs { color: var(--color-ink-soft); font-size: 0.92rem; font-variant-numeric: tabular-nums; text-align: right; }
+  .hours .off .hrs { color: var(--color-red); }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.4rem; }
+
+  .map-wrap {
+    position: relative;
+    min-height: 22rem;
+    border: 1px solid var(--color-line-strong);
+    overflow: hidden;
+  }
+  .map {
+    width: 100%;
+    height: 100%;
+    min-height: 22rem;
+    border: 0;
+    filter: grayscale(0.25) contrast(1.02);
+  }
+  .map-cta {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.1rem;
+    transition: background 0.3s ease;
+  }
+  .map-cta:hover { background: var(--color-red); }
+</style>

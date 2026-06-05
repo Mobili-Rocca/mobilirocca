@@ -1,0 +1,148 @@
+---
+import { Image } from "astro:assets";
+import { images } from "../config/images";
+import type { Lang } from "../i18n/ui";
+import { useT } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const h = t.hero;
+---
+
+<section class="hero">
+  <div class="hero-media">
+    <Image
+      src={images.hero}
+      alt="Ambiente cucina e soggiorno esposto nello showroom Mobili Rocca"
+      widths={[768, 1280, 1920, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero-img"
+    />
+    <div class="scrim"></div>
+  </div>
+
+  <div class="u-wrap hero-inner">
+    <p class="eyebrow hero-eyebrow hero-fade" style="--d:120ms">{h.eyebrow}</p>
+
+    <h1 class="hero-title">
+      <span class="lwrap"><span class="hero-line" style="--d:200ms">{h.line1} <em class="ac">{h.line2}</em></span></span>
+      <span class="lwrap"><span class="hero-line tail" style="--d:340ms">{h.line3}</span></span>
+    </h1>
+
+    <p class="hero-body hero-fade" style="--d:660ms">{h.body}</p>
+
+    <div class="hero-cta hero-fade" style="--d:820ms">
+      <a href="#contatti" class="btn btn-red">{h.ctaPrimary}</a>
+      <a href="#catalogo" class="btn btn-ghost light">{h.ctaSecondary}</a>
+    </div>
+  </div>
+
+  <a href="#catalogo" class="scroll-hint hero-fade" style="--d:1000ms" aria-label={h.scroll}>
+    <span>{h.scroll}</span>
+    <span class="arrow">↓</span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: clamp(3rem, 7vh, 6rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-media { position: absolute; inset: 0; z-index: -1; }
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+    transform: scale(1.04);
+    animation: kenburns 14s ease-out forwards;
+  }
+  @keyframes kenburns { to { transform: scale(1); } }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(12, 9, 6, 0.82) 0%, rgba(12, 9, 6, 0.3) 40%, rgba(12, 9, 6, 0.1) 64%, rgba(12, 9, 6, 0.28) 100%),
+      linear-gradient(to right, rgba(12, 9, 6, 0.55) 0%, rgba(12, 9, 6, 0) 58%);
+  }
+
+  .hero-inner {
+    position: relative;
+    width: 100%;
+    color: #f7f2e9;
+  }
+
+  .hero-eyebrow { color: rgba(247, 242, 233, 0.82); }
+  .hero-eyebrow::before { background: var(--color-red); }
+
+  .hero-title {
+    margin-top: 1.2rem;
+    font-size: clamp(2.4rem, 6.4vw, 5.5rem);
+    font-weight: 360;
+    letter-spacing: -0.022em;
+    line-height: 0.96;
+    color: #fbf7f0;
+  }
+  .lwrap { display: block; overflow: hidden; padding-bottom: 0.18em; margin-bottom: -0.12em; }
+  .hero-line { transform-origin: left bottom; }
+  .hero-title .ac { font-style: italic; font-weight: 340; color: #fff; }
+  .hero-line.tail::after { content: "."; color: var(--color-red); }
+
+  .hero-body {
+    margin-top: 1.4rem;
+    max-width: 42ch;
+    font-size: clamp(0.98rem, 1vw, 1.1rem);
+    line-height: 1.55;
+    color: rgba(247, 242, 233, 0.86);
+  }
+
+  .hero-cta {
+    margin-top: 2.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .btn-ghost.light {
+    border-color: rgba(247, 242, 233, 0.45);
+    color: #f7f2e9;
+  }
+  .btn-ghost.light:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    right: clamp(1.5rem, 4vw, 4rem);
+    bottom: clamp(1.75rem, 5vh, 3.25rem);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(247, 242, 233, 0.8);
+    writing-mode: vertical-rl;
+  }
+  .scroll-hint .arrow {
+    writing-mode: horizontal-tb;
+    animation: nudge 1.8s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+  @media (min-width: 1024px) {
+    .scroll-hint { display: flex; }
+  }
+</style>

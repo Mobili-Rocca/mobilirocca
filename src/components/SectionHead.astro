@@ -1,0 +1,56 @@
+---
+interface Props {
+  num: string;
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  light?: boolean; // for dark backgrounds
+}
+const { num, eyebrow, title, intro, light = false } = Astro.props;
+---
+
+<div class={`shead ${light ? "is-light" : ""}`}>
+  <div class="shead-top" data-reveal>
+    <span class="eyebrow">{eyebrow}</span>
+    <span class="seg-num">{num}<span class="of"> / 05</span></span>
+  </div>
+  <h2 class="shead-title" data-reveal style="--reveal-delay:90ms">
+    <Fragment set:html={title} />
+  </h2>
+  {intro && (
+    <p class="shead-intro" data-reveal style="--reveal-delay:160ms">{intro}</p>
+  )}
+</div>
+
+<style>
+  .shead { display: flex; flex-direction: column; }
+  .shead-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .is-light .shead-top { border-bottom-color: rgba(244, 239, 229, 0.18); }
+  .is-light .eyebrow { color: rgba(244, 239, 229, 0.7); }
+
+  .seg-num { font-size: 1.5rem; letter-spacing: 0; white-space: nowrap; }
+  .seg-num .of { color: var(--color-ink-soft); font-size: 0.95rem; }
+  .is-light .seg-num .of { color: rgba(244, 239, 229, 0.55); }
+
+  .shead-title {
+    margin-top: 2.2rem;
+    font-size: clamp(2.2rem, 5.4vw, 4.4rem);
+    font-weight: 360;
+    max-width: 18ch;
+  }
+  .shead-intro {
+    margin-top: 1.5rem;
+    max-width: 52ch;
+    font-size: clamp(1rem, 1.1vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+  .is-light .shead-intro { color: rgba(244, 239, 229, 0.75); }
+</style>
