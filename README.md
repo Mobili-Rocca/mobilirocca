@@ -1,61 +1,110 @@
-# Mobili Rocca — Landing page
+# Mobili Rocca — Landing Page
 
-One-page bilingual (IT / EN) marketing site for **Mobili Rocca S.r.l.**, a furniture
-showroom in Broccostella (FR). Built with **Astro 5 + Tailwind v4**, static output,
-zero client JS except the header/menu/scroll-reveal helper.
+Bilingual (🇮🇹 / 🇬🇧) marketing landing page for **Mobili Rocca S.r.l.**, a family-run
+furniture showroom in Broccostella (FR), Italy — furnishing the Ciociaria area since 1968.
 
-## Design
+Built with **Astro** + **Tailwind CSS v4**. Static output, image optimization at build time,
+near-zero client JavaScript. Editorial design in the brand's red / black / cream identity.
 
-Editorial Italian showroom: cream paper ground, warm near-black ink, brand **red**
-(`#d11f0f`) as sharp punctuation. Display type **Fraunces**, body **Schibsted Grotesk**
-(self-hosted via `@fontsource-variable`). Tokens live in `src/styles/global.css` (`@theme`).
+![Mobili Rocca — hero](docs/screenshots/01-hero.png)
 
-## Structure
+---
+
+## Screenshots
+
+| Catalogo | Showroom |
+| --- | --- |
+| ![Catalogue section](docs/screenshots/02-catalogo.png) | ![Showroom gallery](docs/screenshots/03-showroom.png) |
+
+| Servizi | Contatti |
+| --- | --- |
+| ![Services section](docs/screenshots/04-servizi.png) | ![Contact section](docs/screenshots/05-contatti.png) |
+
+<p align="center">
+  <img src="docs/screenshots/06-mobile.png" alt="Mobile view" width="320" />
+</p>
+
+---
+
+## Highlights
+
+- **One scrolling page**, anchor navigation: Hero · Catalogo · Chi siamo · Showroom · Servizi · Contatti.
+- **Two languages** — Italian at `/`, English at `/en/`, with an in-header toggle.
+- **Editorial design** — cream paper, warm ink, brand red accents. Display type *Fraunces*,
+  body *Schibsted Grotesk* (self-hosted, no external font requests).
+- **Optimized images** — source photos are compressed to responsive WebP automatically by Astro.
+- **Direct contact** — click-to-call, WhatsApp (auto-disabled until a number is set), email,
+  and an embedded Google Map. No backend required.
+- **Built to be edited** — text, colours, photos and business details each live in one
+  clearly-labelled file (see [`EDITING.md`](EDITING.md)).
+
+---
+
+## Tech stack
+
+| | |
+| --- | --- |
+| Framework | [Astro](https://astro.build) (static output) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com) + CSS custom properties |
+| Fonts | Fraunces + Schibsted Grotesk via `@fontsource-variable` (self-hosted) |
+| Images | `astro:assets` (responsive WebP) |
+| i18n | Astro built-in routing (`it` default, `en` prefixed) |
+
+---
+
+## Project structure
 
 ```
 src/
-├── assets/            showroom photos + logo (optimized at build by astro:assets)
-├── components/        Home + section components (Header, Hero, Categories, About,
-│                      Gallery, Services, Contact, Footer, Logo, SectionHead)
-├── config/site.ts     business facts (address, phone, hours, map, partners)
-├── i18n/ui.ts         all copy, IT + EN dictionaries (single source of truth)
-├── layouts/Base.astro <html> shell, head/SEO, fonts, global scripts
+├── assets/             showroom photos + logo (optimized at build)
+├── components/         Home + section components (Header, Hero, Categories,
+│                       About, Gallery, Services, Contact, Footer, Logo, SectionHead)
+├── config/
+│   ├── site.ts         business facts: address, phone, hours, map, partners
+│   └── images.ts       single map of every photo used on the site
+├── i18n/ui.ts          all copy — Italian + English dictionaries
+├── layouts/Base.astro  <html> shell, head/SEO, fonts, global scripts
+├── styles/global.css   design tokens (colours, fonts) + base styles
 └── pages/
-    ├── index.astro    Italian  →  /
-    └── en/index.astro English  →  /en/
+    ├── index.astro     Italian  →  /
+    └── en/index.astro  English  →  /en/
 ```
 
-The CSS wordmark in `Logo.astro` reconstructs the logo so it stays crisp and recolors
-on dark/light grounds. The raster logo (`public/logo.jpg`) is used only for favicon / OG.
+---
 
-## Commands
+## Getting started
 
-| Command           | Action                                  |
-| :---------------- | :-------------------------------------- |
-| `npm run dev`     | Dev server at `localhost:4321`          |
-| `npm run build`   | Build static site to `./dist/`          |
-| `npm run preview` | Preview the production build            |
+```bash
+npm install        # install dependencies
+npm run dev        # local dev server → http://localhost:4321
+npm run build      # build static site → ./dist/
+npm run preview    # preview the production build
+```
 
-Deploy `dist/` anywhere static (Vercel / Netlify / any host).
+Deploy the generated `dist/` folder to any static host (Vercel, Netlify, GitHub Pages…).
 
-## ⚠️ Placeholder data — REPLACE BEFORE LAUNCH
+---
 
-Invented per request; search `PLACEHOLDER` in `src/config/site.ts`:
+## Editing the site
 
-- **Founding year** `1968` — used in hero, About "Est." tag, footer.
-- **WhatsApp** `+39 351 234 5678` — a real mobile is required (the `0776 890050`
-  landline cannot receive WhatsApp).
-- **Email** `info@mobilirocca.it`.
-- **VAT / P. IVA** `IT 02784500608`.
+Everyday changes don't require coding — see [`EDITING.md`](EDITING.md). In short:
 
-Confirmed real: address `Via Stella 116, 03030 Broccostella (FR)`, phone `0776 890050`,
-opening hours, Facebook URL.
+| To change… | Edit… |
+| --- | --- |
+| Text / wording | `src/i18n/ui.ts` (keep Italian + English in sync) |
+| Contact details, hours, WhatsApp | `src/config/site.ts` |
+| Photos | `src/config/images.ts` (or replace a file in `src/assets/` with the same name) |
+| Colours / fonts | top of `src/styles/global.css` |
 
-## Notes
+### ⚠️ Placeholder data — replace before launch
 
-- Photos are showroom/Mobilturi catalogue shots supplied by the owner. More can be
-  pulled from the [Facebook page](https://www.facebook.com/MobilificioRoccaBroccostella/)
-  or the Mobilturi catalogue. Drop new images in `src/assets/` and wire them in the
-  relevant component.
-- To edit any text, change `src/i18n/ui.ts` (keep IT and EN in sync).
-- The embedded map uses a keyless Google Maps query; swap to a precise place URL if needed.
+Invented values (search `PLACEHOLDER` in `src/config/site.ts`): founding year, WhatsApp
+number (currently empty → button disabled), email, and VAT number. Address, phone, opening
+hours and the Facebook link are real.
+
+---
+
+## AI-assisted development
+
+This project includes [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) with conventions and
+guardrails for AI coding agents. Read them before making automated changes.
