@@ -59,8 +59,8 @@ const it = {
   about: {
     num: "02",
     eyebrow: "Chi siamo",
-    title: "Tre generazioni che arredano la Ciociaria.",
-    p1: "Dal 1968 Mobili Rocca accompagna le famiglie del territorio nella scelta dell'arredo, con un grande showroom a Broccostella e una passione per il legno e per il bello che si tramanda di padre in figlio.",
+    title: "... generazioni che arredano la Ciociaria.",
+    p1: "Dal 1970 Mobili Rocca accompagna le famiglie del territorio nella scelta dell'arredo, con un grande showroom a Broccostella e una passione per il legno e per il bello che si tramanda di padre in figlio.",
     p2: "Dalla cucina alla camera, dal soggiorno agli armadi su misura: selezioniamo solo prodotti di qualità dei migliori marchi italiani e ti seguiamo dal primo progetto fino al montaggio in casa.",
     stats: [
       { n: "1968", l: "dalla nostra apertura" },
