@@ -13,9 +13,9 @@ export const anchors = {
 
 const it = {
   meta: {
-    title: "Mobili Rocca — Arredamenti a Broccostella (FR) dal 1968",
+    title: "Mobili Rocca — Arredamenti a Broccostella (FR) dal 1970",
     description:
-      "Mobili Rocca: cucine, camere, soggiorni, armadi e molto altro. Dal 1968 lo showroom di riferimento per l'arredamento in Ciociaria. Broccostella (FR).",
+      "Mobili Rocca: cucine, camere, soggiorni, armadi e molto altro. Dal 1970 lo showroom di riferimento per l'arredamento in Ciociaria. Broccostella (FR).",
   },
   nav: {
     items: [
@@ -32,7 +32,7 @@ const it = {
     close: "Chiudi",
   },
   hero: {
-    eyebrow: "Arredamenti dal 1968 — Broccostella (FR)",
+    eyebrow: "Arredamenti dal 1970 — Broccostella (FR)",
     line1: "Arrediamo",
     line2: "ogni stanza",
     line3: "della tua casa",
@@ -48,22 +48,22 @@ const it = {
     intro:
       "Non solo cucine. In showroom trovi tutto l'occorrente per arredare ogni angolo della tua casa, dal progetto alla posa.",
     items: [
-      { img: "cucina", title: "Cucine", desc: "Moderne o classiche, componibili e su misura." },
-      { img: "camera", title: "Camere da letto", desc: "Letti, comò e finiture per il tuo riposo." },
-      { img: "armadi", title: "Armadi & cabine", desc: "Ante battenti, scorrevoli e cabine armadio." },
-      { img: "giorno", title: "Zona giorno", desc: "Soggiorni, pareti attrezzate e salotti." },
+      { img: "cucina", title: "Cucine, tavoli e sedie", desc: "Moderne o classiche, componibili e su misura." },
+      { img: "camera", title: "Camere da letto", desc: "Armadi, letti, comò e finiture per il tuo riposo." },
+      { img: "giorno", title: "Camerette", desc: "Camerette moderne e personalizzabili per ogni esigenza." },
+      { img: "armadi", title: "Soggiorni e divani", desc: "Spazi accoglienti progettati per il tuo benessere quotidiano." },
     ],
     moreLabel: "E inoltre",
-    more: ["Camerette", "Materassi & reti", "Salotti & imbottiti", "Tendaggi", "Complementi", "Arredo per esterni"],
+    more: ["Camerette", "Materassi & reti"],
   },
   about: {
     num: "02",
     eyebrow: "Chi siamo",
-    title: "... generazioni che arredano la Ciociaria.",
+    title: " ... generazioni che arredano la Ciociaria.",
     p1: "Dal 1970 Mobili Rocca accompagna le famiglie del territorio nella scelta dell'arredo, con un grande showroom a Broccostella e una passione per il legno e per il bello che si tramanda di padre in figlio.",
     p2: "Dalla cucina alla camera, dal soggiorno agli armadi su misura: selezioniamo solo prodotti di qualità dei migliori marchi italiani e ti seguiamo dal primo progetto fino al montaggio in casa.",
     stats: [
-      { n: "1968", l: "dalla nostra apertura" },
+      { n: "1970", l: "dalla nostra apertura" },
       { n: "3", l: "generazioni di famiglia" },
       { n: "100%", l: "qualità Made in Italy" },
     ],
@@ -83,9 +83,9 @@ const it = {
     eyebrow: "I nostri servizi",
     title: "Ti seguiamo dal progetto al montaggio.",
     items: [
-      { title: "Progettazione & consulenza", desc: "Progettiamo con te ogni ambiente, su misura e senza impegno." },
-      { title: "Consegna a domicilio", desc: "Consegniamo in zona, anche in giornata." },
-      { title: "Montaggio professionale", desc: "Il nostro team monta tutto a regola d'arte, a casa tua." },
+      { title: "Progettazione & consulenza", desc: "Progettiamo con te ogni ambiente, su misura e (.....senza impegno)." },
+      { title: "Consegna a domicilio", desc: "........ Consegniamo in zona, anche in giornata." },
+      { title: "Montaggio & assistenza", desc: ".......Il nostro team monta tutto a regola d'arte, a casa tua." },
       { title: "Showroom & parcheggio", desc: "Ampio spazio espositivo, parcheggio e accesso facilitato." },
     ],
     moreLabel: "Inoltre",
@@ -106,7 +106,7 @@ const it = {
     waText: "Ciao Mobili Rocca, vorrei avere informazioni sui vostri arredi.",
   },
   footer: {
-    tagline: "Arredamenti dal 1968 — Broccostella (FR)",
+    tagline: "Arredamenti dal 1970 — Broccostella (FR)",
     explore: "Naviga",
     contact: "Contatti",
     hours: "Orari",
@@ -164,10 +164,10 @@ const en: typeof it = {
     num: "02",
     eyebrow: "About us",
     title: "Three generations furnishing Ciociaria.",
-    p1: "Since 1968 Mobili Rocca has helped local families choose their furniture, with a large showroom in Broccostella and a passion for wood and beauty handed down from father to son.",
+    p1: "Since 1970 Mobili Rocca has helped local families choose their furniture, with a large showroom in Broccostella and a passion for wood and beauty handed down from father to son.",
     p2: "From the kitchen to the bedroom, from the living room to bespoke wardrobes: we select only quality products from the best Italian brands and follow you from the first design to the install at home.",
     stats: [
-      { n: "1968", l: "since we opened" },
+      { n: "1970", l: "since we opened" },
       { n: "3", l: "family generations" },
       { n: "100%", l: "Made in Italy quality" },
     ],
