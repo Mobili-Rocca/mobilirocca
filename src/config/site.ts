@@ -7,14 +7,14 @@ export const business = {
   town: "Broccostella",
   province: "FR",
   region: "Lazio",
-  foundedYear: 1968, // PLACEHOLDER
+  foundedYear: 1970, // PLACEHOLDER
 
   address: {
-    street: "Via Stella 116",
+    street: "Via Stella 166 ",
     zip: "03030",
     city: "Broccostella",
     province: "FR",
-    full: "Via Stella 116, 03030 Broccostella (FR)",
+    full: "Via Stella 166, 03030 Broccostella (FR)",
   },
 
   phone: { display: "0776 890050", href: "+390776890050" },
@@ -46,7 +46,7 @@ export const hours: Day[] = [
   { d: "Mercoledì", en: "Wednesday", h: ["09:00 – 13:00", "16:00 – 20:00"] },
   { d: "Giovedì",   en: "Thursday",  h: ["09:00 – 13:00", "16:00 – 20:00"] },
   { d: "Venerdì",   en: "Friday",    h: ["09:00 – 13:00", "16:00 – 20:00"] },
-  { d: "Sabato",    en: "Saturday",  h: ["09:00 – 13:00", "16:30 – 19:30"] },
+  { d: "Sabato",    en: "Saturday",  h: ["09:00 – 13:00", "16:00 – 20:00"] },
   { d: "Domenica",  en: "Sunday",    h: null },
 ];
 

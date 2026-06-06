@@ -143,7 +143,7 @@ const en: typeof it = {
     body: "Kitchens, bedrooms, living areas, made-to-measure wardrobes and much more. Since 1968, the reference point for home furnishing in the heart of Ciociaria.",
     ctaPrimary: "Visit the showroom",
     ctaSecondary: "See the catalogue",
-    scroll: "Explore",
+    scroll: "Explore", 
   },
   cats: {
     num: "01",

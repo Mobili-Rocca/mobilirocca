@@ -8,32 +8,38 @@ import { images } from "../config/images";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = useT(lang).cats;
-
-const imgs: Record<string, ImageMetadata> = images.categories;
+const imgs: Record<string, ImageMetadata[]> = images.categories;
 ---
+function openGallery(key) 
+  console.log("openGallery chiamata con:", key, imagesMap);
 
 <section id="catalogo" class="cats u-wrap">
   <SectionHead num={c.num} eyebrow={c.eyebrow} title={c.title} intro={c.intro} />
-
   <div class="grid">
     {c.items.map((item, i) => (
-      <a href="#contatti" class="cat" data-reveal style={`--reveal-delay:${i * 90}ms`}>
-        <div class="zoomwrap media">
-          <Image
-            src={imgs[item.img]}
-            alt={item.title}
-            widths={[400, 640, 900]}
-            sizes="(min-width:1024px) 22vw, (min-width:640px) 45vw, 90vw"
-            class="img"
-          />
-          <span class="idx">0{i + 1}</span>
-        </div>
-        <div class="body">
-          <h3>{item.title}</h3>
-          <span class="arr" aria-hidden="true">→</span>
-        </div>
-        <p class="desc">{item.desc}</p>
-      </a>
+      <div class="cat" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+        <!-- Card principale cliccabile -->
+        <button class="card-btn" onclick={`openGallery('${item.img}')`}>
+          <div class="zoomwrap media">
+            <Image
+              src={imgs[item.img][0]}
+              alt={item.title}
+              widths={[400, 640, 900]}
+              sizes="(min-width:1024px) 22vw, (min-width:640px) 45vw, 90vw"
+              class="img"
+            />
+            <span class="idx">0{i + 1}</span>
+            {imgs[item.img].length > 1 && (
+              <span class="count">+{imgs[item.img].length - 1} foto</span>
+            )}
+          </div>
+          <div class="body">
+            <h3>{item.title}</h3>
+            <span class="arr" aria-hidden="true">→</span>
+          </div>
+          <p class="desc">{item.desc}</p>
+        </button>
+      </div>
     ))}
   </div>
 
@@ -45,23 +51,94 @@ const imgs: Record<string, ImageMetadata> = images.categories;
   </div>
 </section>
 
-<style>
-  .cats { padding-block: clamp(5rem, 12vh, 9rem); }
+<!-- LIGHTBOX GALLERIA -->
+<div id="gallery-overlay" class="overlay" aria-hidden="true">
+  <button class="close-btn" onclick="closeGallery()" aria-label="Chiudi">✕</button>
+  <button class="nav prev" onclick="prevPhoto()" aria-label="Precedente">‹</button>
+  <button class="nav next" onclick="nextPhoto()" aria-label="Successiva">›</button>
+  <div class="overlay-img-wrap">
+    <img id="gallery-img" src="" alt="" class="overlay-img" />
+  </div>
+  <div id="gallery-dots" class="dots"></div>
+</div>
 
+<script define:vars={{ imagesMap: Object.fromEntries(
+  Object.entries(images.categories).map(([k, arr]) => [k, arr.map(i => i.src)])
+) }}>
+  let current = 0;
+  let activeKey = "";
+  let photos = [];
+
+  function openGallery(key) {
+    activeKey = key;
+    photos = imagesMap[key] || [];
+    current = 0;
+    showPhoto();
+    const overlay = document.getElementById("gallery-overlay");
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeGallery() {
+    const overlay = document.getElementById("gallery-overlay");
+    overlay.classList.remove("open");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  function showPhoto() {
+    document.getElementById("gallery-img").src = photos[current];
+    // dots
+    const dots = document.getElementById("gallery-dots");
+    dots.innerHTML = photos.map((_, i) =>
+      `<span class="dot ${i === current ? 'active' : ''}" onclick="goTo(${i})"></span>`
+    ).join("");
+  }
+
+  function prevPhoto() { current = (current - 1 + photos.length) % photos.length; showPhoto(); }
+  function nextPhoto() { current = (current + 1) % photos.length; showPhoto(); }
+  function goTo(i) { current = i; showPhoto(); }
+
+  // chiudi con ESC o click fuori
+  document.getElementById("gallery-overlay").addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) closeGallery();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeGallery();
+    if (e.key === "ArrowLeft") prevPhoto();
+    if (e.key === "ArrowRight") nextPhoto();
+  });
+
+  window.openGallery = openGallery;
+  window.closeGallery = closeGallery;
+  window.prevPhoto = prevPhoto;
+  window.nextPhoto = nextPhoto;
+  window.goTo = goTo;
+</script>
+
+<style>
+  /* ---- card ---- */
+  .cats { padding-block: clamp(5rem, 12vh, 9rem); }
   .grid {
     margin-top: clamp(3rem, 6vh, 5rem);
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem 1.75rem;
   }
-  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 640px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-  /* Editorial vertical stagger on desktop */
-  @media (min-width: 1024px) {
-    .cat:nth-child(even) { transform: translateY(3.25rem); }
-  }
+  @media (min-width: 1024px) { .cat:nth-child(even) { transform: translateY(3.25rem); } }
 
-  .cat { display: block; }
+  .card-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+  }
   .media {
     position: relative;
     aspect-ratio: 4 / 5;
@@ -70,76 +147,77 @@ const imgs: Record<string, ImageMetadata> = images.categories;
   .img { width: 100%; height: 100%; object-fit: cover; }
   .idx {
     position: absolute;
-    top: 0.85rem;
-    left: 0.85rem;
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    top: 0.85rem; left: 0.85rem;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
     color: #fff;
     background: color-mix(in srgb, var(--color-red) 92%, transparent);
     padding: 0.3rem 0.55rem;
   }
+  .count {
+    position: absolute;
+    bottom: 0.85rem; right: 0.85rem;
+    font-size: 0.72rem; font-weight: 600;
+    color: #fff;
+    background: rgba(0,0,0,0.55);
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+  }
   .body {
     margin-top: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--color-line);
   }
   .body h3 { font-size: 1.6rem; font-weight: 400; }
-  .arr {
-    color: var(--color-red);
-    font-size: 1.1rem;
-    transition: transform 0.4s var(--ease-out-expo);
-  }
-  .cat:hover .arr { transform: translate(4px, -4px); }
-  .desc {
-    margin-top: 0.7rem;
-    font-size: 0.92rem;
-    line-height: 1.5;
-    color: var(--color-ink-soft);
-  }
+  .arr { color: var(--color-red); font-size: 1.1rem; transition: transform 0.4s; }
+  .card-btn:hover .arr { transform: translate(4px, -4px); }
+  .desc { margin-top: 0.7rem; font-size: 0.92rem; line-height: 1.5; color: var(--color-ink-soft); }
 
   .more {
     margin-top: clamp(5rem, 9vh, 7rem);
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
+    display: flex; flex-direction: column; gap: 1.1rem;
     padding-top: 2rem;
     border-top: 1px solid var(--color-line);
   }
-  @media (min-width: 768px) {
-    .more { flex-direction: row; align-items: baseline; gap: 2.5rem; }
-  }
-  .more-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-ink-soft);
-    white-space: nowrap;
-  }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem 0.7rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  @media (min-width: 768px) { .more { flex-direction: row; align-items: baseline; gap: 2.5rem; } }
+  .more-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-ink-soft); white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem 0.7rem; list-style: none; padding: 0; margin: 0; }
   .chips li {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    border: 1px solid var(--color-line-strong);
-    border-radius: 999px;
-    padding: 0.5rem 1.05rem;
-    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+    font-size: 0.9rem; font-weight: 500; color: var(--color-ink);
+    border: 1px solid var(--color-line-strong); border-radius: 999px; padding: 0.5rem 1.05rem;
+    transition: border-color 0.3s, color 0.3s;
   }
-  .chips li:hover {
-    border-color: var(--color-red);
-    color: var(--color-red);
+  .chips li:hover { border-color: var(--color-red); color: var(--color-red); }
+
+  /* ---- lightbox ---- */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.92);
+    align-items: center; justify-content: center;
+    flex-direction: column;
   }
+  .overlay.open { display: flex; }
+  .overlay-img-wrap { max-width: 90vw; max-height: 80vh; }
+  .overlay-img { max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 4px; }
+  .close-btn {
+    position: absolute; top: 1.2rem; right: 1.5rem;
+    background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
+  }
+  .nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: #fff; font-size: 3.5rem; cursor: pointer; padding: 0 1rem;
+    line-height: 1; opacity: 0.7; transition: opacity 0.2s;
+  }
+  .nav:hover { opacity: 1; }
+  .prev { left: 0.5rem; }
+  .next { right: 0.5rem; }
+  .dots {
+    display: flex; gap: 0.5rem; margin-top: 1.2rem;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.35); cursor: pointer; transition: background 0.2s;
+  }
+  .dot.active { background: #fff; }
 </style>
