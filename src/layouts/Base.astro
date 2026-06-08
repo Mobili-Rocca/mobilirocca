@@ -4,12 +4,47 @@ import "@fontsource-variable/fraunces";
 import "@fontsource-variable/schibsted-grotesk";
 import type { Lang } from "../i18n/ui";
 import { useT } from "../i18n/ui";
+import { business, hours } from "../config/site";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = useT(lang);
+
+const openingHoursSpecification = hours.flatMap((day) =>
+  day.h
+    ? day.h.map((range) => {
+        const [opens, closes] = range.split(/\s*[–-]\s*/);
+        return {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: `https://schema.org/${day.en}`,
+          opens,
+          closes,
+        };
+      })
+    : []
+);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FurnitureStore",
+  name: business.name,
+  legalName: business.legalName,
+  image: new URL("/logo.jpg", Astro.site).toString(),
+  url: Astro.site?.toString(),
+  telephone: business.phone.href,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: business.address.street.trim(),
+    addressLocality: business.address.city,
+    postalCode: business.address.zip,
+    addressRegion: business.address.province,
+    addressCountry: "IT",
+  },
+  openingHoursSpecification,
+  sameAs: [business.social.facebook],
+};
 ---
 
 <!doctype html>
@@ -32,6 +67,8 @@ const t = useT(lang);
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:image" content={new URL("/logo.jpg", Astro.site)} />
     <meta property="og:locale" content={lang === "it" ? "it_IT" : "en_GB"} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 
     <script is:inline>
       document.documentElement.classList.add("js");
