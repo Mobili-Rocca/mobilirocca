@@ -35,7 +35,7 @@ export const business = {
   mapLink:
     "https://www.google.com/maps/search/?api=1&query=Mobili+Rocca+Via+Stella+116+Broccostella",
 
-  partners: ["Mobilturi", "IMAB Group"],
+  partners: ["Mobilturi", "IMAB Group", "Colombini Group", "Merolla", "Tancredi", "La Seggiola"],
 } as const;
 
 export type Day = { d: string; en: string; h: string[] | null };
