@@ -21,7 +21,7 @@ export const business = {
   // WhatsApp: leave both strings empty ("") to hide / disable the WhatsApp button.
   // To enable it, put the mobile number in international format WITHOUT "+" or spaces,
   // e.g. display: "+39 351 234 5678", href: "393512345678".
-  whatsapp: { display: "", href: "" },
+  whatsapp: { display: "", href: "0776890050" },
   email: "info@mobilirocca.it", // PLACEHOLDER
   vat: "IT 02784500608", // PLACEHOLDER
 
