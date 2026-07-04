@@ -64,7 +64,7 @@ const it = {
     p2: "Dalla cucina alla camera, dal soggiorno agli armadi su misura: selezioniamo solo prodotti di qualità dei migliori marchi italiani e ti seguiamo dal primo progetto fino al montaggio in casa.",
     stats: [
       { n: "1970", l: "dalla nostra apertura" },
-      { n: "3", l: "generazioni di famiglia" },
+      { n: "2", l: "generazioni di famiglia" },
       { n: "100%", l: "qualità Made in Italy" },
     ],
     partnersLabel: "In showroom",
@@ -83,9 +83,9 @@ const it = {
     eyebrow: "I nostri servizi",
     title: "Ti seguiamo dal progetto al montaggio.",
     items: [
-      { title: "Progettazione & consulenza", desc: "Progettiamo con te ogni ambiente, su misura e (.....senza impegno)." },
-      { title: "Consegna a domicilio", desc: "........ Consegniamo in zona, anche in giornata." },
-      { title: "Montaggio & assistenza", desc: ".......Il nostro team monta tutto a regola d'arte, a casa tua." },
+      { title: "Progettazione & consulenza", desc: "Progettiamo con te ogni ambiente, su misura e nei minimi dettagli." },
+      { title: "Consegna a domicilio", desc: "Consegniamo noi, direttamente a casa tua." },
+      { title: "Montaggio & assistenza", desc: "Il nostro team monta tutto a regola d'arte, a casa tua." },
       { title: "Showroom & parcheggio", desc: "Ampio spazio espositivo, parcheggio e accesso facilitato." },
     ],
     moreLabel: "Inoltre",
