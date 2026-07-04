@@ -10,9 +10,6 @@ const { lang } = Astro.props;
 const c = useT(lang).cats;
 const imgs: Record<string, ImageMetadata[]> = images.categories;
 ---
-function openGallery(key) 
-  console.log("openGallery chiamata con:", key, imagesMap);
-
 <section id="catalogo" class="cats u-wrap">
   <SectionHead num={c.num} eyebrow={c.eyebrow} title={c.title} intro={c.intro} />
   <div class="grid">
