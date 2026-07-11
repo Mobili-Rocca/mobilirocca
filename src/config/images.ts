@@ -1,7 +1,7 @@
 
 //  ALL SITE IMAGES IN ONE PLACE
 
-import hero from "../assets/NocturnalAbstract_com.jpg";
+import hero from "../assets/NocturnalAbstract_com-2.jpg";
 import about from "../assets/cucina0.jpg";
 
 // Category cards
