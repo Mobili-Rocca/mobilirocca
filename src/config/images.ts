@@ -17,7 +17,7 @@ import cucina3 from "../assets/cucina-moderna-dark.jpg";
 // Showroom gallery
 import gallery1 from "../assets/cucina-classica.jpg";
 import gallery2 from "../assets/cucina-moderna-dark.jpg";
-import gallery3 from "../assets/showroom.jpg";
+import gallery3 from "../assets/src/assets/25-modern-kitchen-nala-18-2.jpg";
 import gallery4 from "../assets/cucina-moderna-legno.jpg";
 import gallery5 from "../assets/src/assets/cucina-elegante-classica-olimpia_ardesia_ghisa_03.jpg";
 import gallery6 from "../assets/armadi.jpg";
