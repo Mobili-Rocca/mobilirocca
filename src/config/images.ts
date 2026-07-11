@@ -20,7 +20,7 @@ import gallery2 from "../assets/cucina-moderna-dark.jpg";
 import gallery3 from "../assets/src/assets/25-modern-kitchen-nala-18-2.jpg";
 import gallery4 from "../assets/cucina-moderna-legno.jpg";
 import gallery5 from "../assets/src/assets/cucina-elegante-classica-olimpia_ardesia_ghisa_03.jpg";
-import gallery6 from "../assets/armadi.jpg";
+import gallery6 from "../assets/src/assets/Cucina-Gaia-PET-sahara-opaco-tortora-opaco.jpg";
 import gallery7 from "../assets/cucina-living.jpg";
 import gallery8 from "../assets/hero-cucina-verde.jpg";
 
