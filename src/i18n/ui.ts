@@ -36,7 +36,7 @@ const it = {
     line1: "Arrediamo",
     line2: "ogni stanza",
     line3: "della tua casa",
-    body: "Cucine, camere, soggiorni, armadi su misura e molto altro. Dal 1968 il punto di riferimento per l'arredamento nel cuore della Ciociaria.",
+    body: "Cucine, camere, soggiorni, armadi su misura e molto altro. Dal 1970 il punto di riferimento per l'arredamento nel cuore della Ciociaria.",
     ctaPrimary: "Vieni in showroom",
     ctaSecondary: "Scopri il catalogo",
     scroll: "Scopri",
