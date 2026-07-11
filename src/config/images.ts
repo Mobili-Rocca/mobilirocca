@@ -1,7 +1,7 @@
 
 //  ALL SITE IMAGES IN ONE PLACE
 
-import hero from "../assets/hero-cucina-verde.jpg";
+import hero from "../assets/hero_cucina_beige.jpg";
 import about from "../assets/showroom.jpg";
 
 // Category cards
