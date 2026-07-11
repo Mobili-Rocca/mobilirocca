@@ -2,7 +2,7 @@
 //  ALL SITE IMAGES IN ONE PLACE
 
 import hero from "../assets/NocturnalAbstract_com.jpg";
-import about from "../assets/showroom.jpg";
+import about from "../assets/cucina0.jpg";
 
 // Category cards
 import catKitchen from "../assets/cucina-moderna-legno.jpg";
