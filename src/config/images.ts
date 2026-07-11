@@ -19,7 +19,7 @@ import gallery1 from "../assets/cucina-classica.jpg";
 import gallery2 from "../assets/cucina-moderna-dark.jpg";
 import gallery3 from "../assets/showroom.jpg";
 import gallery4 from "../assets/cucina-moderna-legno.jpg";
-import gallery5 from "../assets/camera.jpg";
+import gallery5 from "../assets/src/assets/cucina-elegante-classica-olimpia_ardesia_ghisa_03.jpg";
 import gallery6 from "../assets/armadi.jpg";
 import gallery7 from "../assets/cucina-living.jpg";
 import gallery8 from "../assets/hero-cucina-verde.jpg";
