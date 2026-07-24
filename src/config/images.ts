@@ -8,7 +8,7 @@ import about from "../assets/cucina0.jpg";
 import catKitchen from "../assets/cucina-moderna-legno.jpg";
 import catBedroom  from "../assets/CameraLetto_Colombini.jpg";
 import catWardrobe from "../assets/QMC021_soggiorni_imab_concept.jpg";
-import catLiving   from "../assets/Cameretta_Colombini.jpg";
+import catLiving   from "../assets/ragazzi-cameretta-volo-kids-young-camerette-VO_KID_C012_P60-61.jpg";
 
 // Galleria cucine
 import cucina2 from "../assets/cucina-classica.jpg";
