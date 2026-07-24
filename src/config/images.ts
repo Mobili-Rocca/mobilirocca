@@ -6,8 +6,8 @@ import about from "../assets/cucina0.jpg";
 
 // Category cards
 import catKitchen from "../assets/cucina-moderna-legno.jpg";
-import catBedroom  from "../assets/camera.jpg";
-import catWardrobe from "../assets/armadi.jpg";
+import catBedroom  from "../assets/.jpg";
+import catWardrobe from "../assets/.jpg";
 import catLiving   from "../assets/cucina-living.jpg";
 
 // Galleria cucine
