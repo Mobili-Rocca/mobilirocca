@@ -25,7 +25,7 @@ const it = {
       { label: "Servizi", href: "#servizi" },
       { label: "Contatti", href: "#contatti" },
     ],
-    callCta: "Chiama ora",
+    callCta: "Chiama ora", ... 
     otherHref: "/en/",
     otherName: "EN",
     menu: "Menu",
