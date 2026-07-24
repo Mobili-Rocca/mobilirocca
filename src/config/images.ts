@@ -6,9 +6,9 @@ import about from "../assets/cucina0.jpg";
 
 // Category cards
 import catKitchen from "../assets/cucina-moderna-legno.jpg";
-import catBedroom  from "../assets/Cameretta_Colombini.jpg";
+import catBedroom  from "../assets/CameraLetto_Colombini.jpg";
 import catWardrobe from "../assets/QMC021_soggiorni_imab_concept.jpg";
-import catLiving   from "../assets/cucina-living.jpg";
+import catLiving   from "../assets/Cameretta_Colombini.jpg";
 
 // Galleria cucine
 import cucina2 from "../assets/cucina-classica.jpg";
