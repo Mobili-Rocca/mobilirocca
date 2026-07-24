@@ -6,7 +6,7 @@ import about from "../assets/cucina0.jpg";
 
 // Category cards
 import catKitchen from "../assets/cucina-moderna-legno.jpg";
-import catBedroom  from "../assets/src/config/src/config/cameretta-standard-golf-c131.jpg";
+import catBedroom  from "../assets/src/config/cameretta-standard-golf-c131.jpg";
 import catWardrobe from "../assets/QMC021_soggiorni_imab_concept.jpg";
 import catLiving   from "../assets/cucina-living.jpg";
 
