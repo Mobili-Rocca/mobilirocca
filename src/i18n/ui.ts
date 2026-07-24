@@ -54,7 +54,7 @@ const it = {
       { img: "armadi", title: "Soggiorni e divani", desc: "Spazi accoglienti progettati per il tuo benessere quotidiano." },
     ],
     moreLabel: "E inoltre",
-    more: ["Camerette", "Materassi & reti"],
+    more: ["Materassi & reti", "Complementi d'arredo"],
   },
   about: {
     num: "02",
